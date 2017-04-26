@@ -67,6 +67,13 @@ public class Main {
 
         });
 
+        post("/ideas/:slug/vote", (request, response) -> {
+            CourseIdea idea = dao.findBySlug(request.params("slug"));
+            idea.addVoter(request.attribute("username"));
+            response.redirect("/ideas");
+            return null;
+        });
+
 
     }
 

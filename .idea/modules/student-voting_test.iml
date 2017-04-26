@@ -10,6 +10,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="student-voting_main" />
+    <orderEntry type="library" name="Gradle: com.github.slugify:slugify:2.1.4" level="project" />
     <orderEntry type="library" name="Gradle: com.sparkjava:spark-template-handlebars:2.5.5" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-simple:1.7.21" level="project" />
     <orderEntry type="library" name="Gradle: com.sparkjava:spark-core:2.5.5" level="project" />
