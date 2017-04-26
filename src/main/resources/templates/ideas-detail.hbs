@@ -1,0 +1,16 @@
+{{#partial "title"}}
+    Ideas Detail Page
+{{/partial}}
+
+{{#partial "content"}}
+    <h1>{{idea.title}}</h1>
+    <h2>{{idea.voteCount}} Voter(s)</h2>
+    <ul>
+        {{#each idea.voters}}
+            <li>{{this}}</li>
+        {{/each}}
+    </ul>
+
+{{/partial}}
+
+{{> base.hbs}}

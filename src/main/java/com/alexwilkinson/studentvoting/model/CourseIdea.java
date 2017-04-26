@@ -3,7 +3,9 @@ package com.alexwilkinson.studentvoting.model;
 import com.github.slugify.Slugify;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -27,6 +29,10 @@ public class CourseIdea {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<String> getVoters(){
+        return new ArrayList<>(voters);
     }
 
     public boolean addVoter(String voterUsername){
