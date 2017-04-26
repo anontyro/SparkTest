@@ -20,6 +20,20 @@ public class Main {
 
         CourseIdeaDAO dao = new SimpleCourseIdeaDAO();
 
+        before(((request, response) -> {
+            if(request.cookie("username") != null){
+                request.attribute("username", request.cookie("username"));
+            }
+        }));
+
+        //filters all who are not logged in to the ideas page
+        before("/ideas", ((request, response) -> {
+            if(request.attribute("username") == null){
+                response.redirect("/");
+                halt();
+            }
+        }));
+
         get("/", (req, res) -> {
             Map<String, String> model = new HashMap<>();
             model.put("username", req.cookie("username"));
@@ -46,8 +60,7 @@ public class Main {
 
         post("/ideas", (request, response) -> {
             String title = request.queryParams("title");
-            //TODO: Login tied to the cookie needs ot be changed to a database
-            CourseIdea courseIdea = new CourseIdea(title, request.cookie("username"));
+            CourseIdea courseIdea = new CourseIdea(title, request.attribute("username"));
             dao.add(courseIdea);
             response.redirect("/ideas");
             return null;
