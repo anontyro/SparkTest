@@ -45,7 +45,7 @@ In this project the views have been implemented in a rather basic manner with a 
 readable. This is an area that can be greatly improved for a complete project, however this was never the focus of this project
 so it has been left rather basic, although reasonable.
 
-##Retrospective
+## Retrospective
 
 This was a rather eye opening project that highlighted a new framework I have never seen before and allowed me to play around with 
 most of the basic ideas that would be needed within the context of the framework. I feel I learnt a lot and coming from Spring Boot
@@ -54,7 +54,7 @@ I can see the benefits of Spark but also the limitations.
 This was also the first time I have worked with Handlebars but do quite like it as a templating engine and is one I think I would look
 to use again in the future.
 
-##Improvements
+## Improvements
 
 The obvious improvement here would be a database to server the data, this would not be so hard to bring in due to the way the classes
 have been setup, although just for practice and testing it is probably not that important for me.
