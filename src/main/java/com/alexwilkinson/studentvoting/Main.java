@@ -36,6 +36,7 @@ public class Main {
         //filters all who are not logged in to the ideas page
         before("/ideas", ((request, response) -> {
             if(request.attribute("username") == null){
+                setFlashMessage(request, "Please sign in first");
                 response.redirect("/");
                 halt();
             }
@@ -44,6 +45,7 @@ public class Main {
         get("/", (req, res) -> {
             Map<String, String> model = new HashMap<>();
             model.put("username", req.cookie("username"));
+            model.put("flashMessage", captureFlashMessage(req));
             return new ModelAndView(model, "index.hbs");
         },new HandlebarsTemplateEngine());
 
@@ -61,7 +63,7 @@ public class Main {
 
             Map<String, Object> model = new HashMap<>();
             model.put("ideas", dao.findAll());
-            model.put("flashMessage", getFlashMessage(request));
+            model.put("flashMessage", captureFlashMessage(request));
 
             return new ModelAndView(model, "ideas.hbs");
         }, new HandlebarsTemplateEngine());
@@ -81,6 +83,9 @@ public class Main {
             if(added){
                 setFlashMessage(request, "You voted!");
             }
+            else{
+                setFlashMessage(request, "You already voted");
+            }
             response.redirect("/ideas");
             return null;
         });
@@ -91,6 +96,7 @@ public class Main {
             return new ModelAndView(model,"ideas-detail.hbs");
         }, new HandlebarsTemplateEngine() );
 
+        //used to handle the exception thrown by directing to a 404
         exception(NotFoundException.class, (exception, request, response) -> {
             response.status(404);
             HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
@@ -101,6 +107,7 @@ public class Main {
 
     }
 
+    //flash message setup that uses teh session to send messages to the user good for UX
     private static void setFlashMessage(Request request, String message) {
         request.session().attribute(FLASH_MESSAGE_KEY, message);
     }
@@ -113,6 +120,14 @@ public class Main {
             return null;
         }
         return (String)request.session().attribute(FLASH_MESSAGE_KEY);
+    }
+
+    private static String captureFlashMessage(Request request){
+        String message = getFlashMessage(request);
+        if(message !=null){
+            request.session().removeAttribute(FLASH_MESSAGE_KEY);
+        }
+        return message;
     }
 
 }
